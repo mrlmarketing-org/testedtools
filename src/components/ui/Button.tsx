@@ -31,14 +31,15 @@ const variants: Record<Variant, string> = {
 
 export default function Button({
   children,
-  href = '#contact',
+  href,
   variant = 'primary',
   withArrow = false,
   className = '',
   onClick,
 }: ButtonProps) {
-  return (
-    <a href={href} onClick={onClick} className={`${base} ${variants[variant]} ${className}`}>
+  const cls = `${base} ${variants[variant]} ${className}`
+  const inner = (
+    <>
       {children}
       {withArrow && (
         <ArrowRight
@@ -46,6 +47,20 @@ export default function Button({
           className="transition-transform duration-300 ease-smooth group-hover:translate-x-1"
         />
       )}
-    </a>
+    </>
+  )
+
+  // Renders as a link when given an href, otherwise a real button (e.g. to open a dialog).
+  if (href) {
+    return (
+      <a href={href} onClick={onClick} className={cls}>
+        {inner}
+      </a>
+    )
+  }
+  return (
+    <button type="button" onClick={onClick} className={cls}>
+      {inner}
+    </button>
   )
 }

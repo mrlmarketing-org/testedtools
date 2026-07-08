@@ -1,10 +1,14 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Button from './ui/Button'
 import DeviceShowcase from './showcase/DeviceShowcase'
+import WorkWithUsDialog from './WorkWithUsDialog'
 import { EASE } from '../lib/motion'
 import { BOOKING_URL } from '../lib/config'
 
 export default function Hero() {
+  const [messageOpen, setMessageOpen] = useState(false)
+
   return (
     <section id="top" className="relative overflow-hidden bg-paper pt-28 md:pt-36">
       {/* Ambient cinematic background — very subtle, no fake dashboards */}
@@ -89,8 +93,8 @@ export default function Hero() {
               <Button href={BOOKING_URL} variant="primary" withArrow>
                 Book a Strategy Call
               </Button>
-              <Button href="#process" variant="secondary">
-                See Our Process
+              <Button onClick={() => setMessageOpen(true)} variant="secondary">
+                Leave us a message
               </Button>
             </motion.div>
           </div>
@@ -106,6 +110,8 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
+
+      <WorkWithUsDialog open={messageOpen} onClose={() => setMessageOpen(false)} />
     </section>
   )
 }
