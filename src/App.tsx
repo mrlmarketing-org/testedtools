@@ -6,7 +6,6 @@ import Process from './components/Process'
 import WhyHireUs from './components/WhyHireUs'
 import TechStack from './components/TechStack'
 import Outcomes from './components/Outcomes'
-import CaseStudies from './components/CaseStudies'
 import FAQ from './components/FAQ'
 import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
@@ -23,7 +22,6 @@ export default function App() {
         <WhyHireUs />
         <TechStack />
         <Outcomes />
-        <CaseStudies />
         <FAQ />
         <FinalCTA />
       </main>

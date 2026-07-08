@@ -24,7 +24,6 @@ const columns = [
     links: [
       { label: 'Our Process', href: '#process' },
       { label: 'Outcomes', href: '#outcomes' },
-      { label: 'Case Studies', href: '#work' },
       { label: 'FAQ', href: '#faq' },
       { label: 'Book a Call', href: BOOKING_URL },
     ],

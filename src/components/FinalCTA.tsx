@@ -39,9 +39,6 @@ export default function FinalCTA() {
               <Button href={BOOKING_URL} variant="primary" withArrow>
                 Book a Strategy Call
               </Button>
-              <Button href="#work" variant="light">
-                See Our Work
-              </Button>
             </div>
           </div>
         </motion.div>

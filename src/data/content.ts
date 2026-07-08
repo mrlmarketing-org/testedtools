@@ -229,66 +229,6 @@ export const reasons: Reason[] = [
   },
 ]
 
-/* -------------------------------- Case studies --------------------------------- */
-
-export interface CaseStudy {
-  id: string
-  industry: string
-  title: string
-  problem: string
-  solution: string
-  outcome: string
-  metrics: { value: string; label: string }[]
-}
-
-export const caseStudies: CaseStudy[] = [
-  {
-    id: 'property',
-    industry: 'Property Management',
-    title: 'Maintenance and lease requests, triaged automatically',
-    problem:
-      'A regional property manager’s support team was buried under inbound maintenance and lease requests, each handled manually across email and phone.',
-    solution:
-      'An AI intake and routing agent connected to their property system that classifies every request, gathers missing details, and dispatches to the right vendor or team.',
-    outcome:
-      'Routine requests now resolve without human touch, and staff focus on the cases that genuinely need judgment.',
-    metrics: [
-      { value: '71%', label: 'Faster first response' },
-      { value: '3,400', label: 'Staff hours returned / yr' },
-    ],
-  },
-  {
-    id: 'rcm',
-    industry: 'Revenue Cycle Management',
-    title: 'Catching claim denials before they happen',
-    problem:
-      'A billing group faced a high denial rate that delayed cash flow and forced expensive, repetitive rework on rejected claims.',
-    solution:
-      'A denial-risk model paired with a pre-submission review workflow that flags high-risk claims and shows staff exactly what to fix first.',
-    outcome:
-      'Risky claims are corrected before they ever leave the building, shortening the path to payment.',
-    metrics: [
-      { value: '34%', label: 'Fewer denials' },
-      { value: '$2.1M', label: 'Recovered in year one' },
-    ],
-  },
-  {
-    id: 'hospitality',
-    industry: 'Hospitality',
-    title: 'A guest operations copilot for front-line staff',
-    problem:
-      'Guest data was fragmented across booking, point-of-sale, and CRM systems, so staff answered questions with only part of the picture.',
-    solution:
-      'A unified guest profile feeding a concierge assistant that gives staff full context and suggested next steps in seconds.',
-    outcome:
-      'Front-desk and service teams respond instantly and personally, without hunting across four systems.',
-    metrics: [
-      { value: '+18', label: 'Guest NPS' },
-      { value: '22%', label: 'Lift in repeat bookings' },
-    ],
-  },
-]
-
 /* ------------------------------------- FAQ ------------------------------------- */
 
 export interface FAQItem {

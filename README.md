@@ -43,7 +43,6 @@ src/
     ├── Industries.tsx      # six industry cards
     ├── Process.tsx         # scroll-drawn animated timeline
     ├── WhyHireUs.tsx       # four premium cards
-    ├── CaseStudies.tsx     # large Problem / Solution / Outcome / Impact cards
     ├── FAQ.tsx             # accordion
     ├── FinalCTA.tsx        # closing call to action
     ├── Footer.tsx          # simple footer
