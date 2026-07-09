@@ -1,14 +1,16 @@
 {
-  "name": "testedtools-ai",
+  "name": "operatorstudio-ai",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Premium enterprise website for an AI consulting & implementation firm.",
+  "description": "Premium enterprise website for an AI implementation studio.",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/gen-industry-pages.mjs",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "tsc -b --noEmit"
+    "lint": "tsc -b --noEmit",
+    "gen:industries": "node scripts/gen-industry-pages.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.3.19",

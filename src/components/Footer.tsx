@@ -13,10 +13,11 @@ const columns = [
   {
     title: 'Industries',
     links: [
-      { label: 'Property Management', href: '#industries' },
-      { label: 'Hospitality', href: '#industries' },
-      { label: 'Healthcare', href: '#industries' },
-      { label: 'Revenue Cycle Management', href: '#industries' },
+      { label: 'Property Management', href: '/industries/property-management.html' },
+      { label: 'Healthcare', href: '/industries/healthcare.html' },
+      { label: 'Legal', href: '/industries/legal.html' },
+      { label: 'Financial Services', href: '/industries/financial-services.html' },
+      { label: 'All industries', href: '/industries/' },
     ],
   },
   {
@@ -52,12 +53,12 @@ export default function Footer() {
                 <circle cx="24.5" cy="8" r="1.8" fill="#2DD4BF" />
               </svg>
               <span className="font-display text-lg font-semibold tracking-tight">
-                testedtools<span className="text-brand-600">.ai</span>
+                operatorstudio<span className="text-brand-600">.ai</span>
               </span>
             </a>
             <p className="mt-5 text-sm leading-relaxed text-ink-900/55">
-              An AI consulting and implementation firm. We help companies choose, deploy, and build
-              AI systems that create measurable business value.
+              AI experts who help companies choose, deploy, and build AI systems that create
+              measurable business value.
             </p>
           </div>
 
@@ -84,7 +85,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-ink-900/[0.08] pt-8 sm:flex-row sm:items-center">
-          <p className="text-sm text-ink-900/45">© {year} testedtools.ai. All rights reserved.</p>
+          <p className="text-sm text-ink-900/45">© {year} operatorstudio.ai. All rights reserved.</p>
           <a
             href={BOOKING_URL}
             className="text-sm font-medium text-brand-600 transition-colors hover:text-brand-700"

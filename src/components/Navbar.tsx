@@ -26,7 +26,7 @@ function Logo() {
         <circle cx="24.5" cy="8" r="1.8" fill="#2DD4BF" />
       </svg>
       <span className="font-display text-lg font-semibold tracking-tight">
-        testedtools<span className="text-brand-600">.ai</span>
+        operatorstudio<span className="text-brand-600">.ai</span>
       </span>
     </a>
   )

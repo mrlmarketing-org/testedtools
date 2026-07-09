@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { ListChecks, Cpu } from 'lucide-react'
 import { processSteps } from '../data/content'
 import { SectionHeader } from './ui/SectionHeader'
 import { fadeUp, viewportOnce } from '../lib/motion'
@@ -30,8 +31,36 @@ export default function Process() {
           tone="light"
           eyebrow="Our process"
           title="A disciplined path from idea to impact"
-          intro="No science projects. Every engagement moves through the same five stages, each with a clear decision point before we invest further."
+          intro="No science projects. Whether the right answer is an off-the-shelf tool or a custom build, every engagement moves through the same five stages — each with a clear decision point before we invest further."
         />
+
+        {/* Two ways we deliver — the same process covers both */}
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-400/15 text-teal-300">
+                <ListChecks size={18} strokeWidth={1.75} />
+              </span>
+              <h3 className="text-base font-semibold text-white">Recommend &amp; implement</h3>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-white/55">
+              When the right off-the-shelf tool already exists, we select it without the sales spin,
+              configure it to your workflow, and integrate it into your stack.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500/15 text-brand-400">
+                <Cpu size={18} strokeWidth={1.75} />
+              </span>
+              <h3 className="text-base font-semibold text-white">Design &amp; build custom</h3>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-white/55">
+              When nothing off-the-shelf fits, we design and build a system around your data and
+              processes — then ship it to production and own the result.
+            </p>
+          </div>
+        </div>
 
         <div ref={trackRef} className="relative mt-16 md:mt-20">
           {/* Vertical rail */}

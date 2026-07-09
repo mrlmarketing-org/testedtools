@@ -9,8 +9,8 @@ export default function WhyHireUs() {
       <div className="container-x">
         <SectionHeader
           eyebrow="Why companies hire us"
-          title="Consultants who ship, not just recommend"
-          intro="Plenty of firms will hand you a strategy deck. We are the ones who stay to build the thing, integrate it, and make sure it earns its place."
+          title="AI experts who drive outcomes, not decks"
+          intro="Plenty of firms will hand you a strategy deck. We're AI experts who stay to build it, integrate it, and make sure it moves a number that matters."
         />
 
         <motion.div

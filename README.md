@@ -1,6 +1,6 @@
-# testedtools.ai — AI Consulting & Implementation
+# operatorstudio.ai — AI Implementation Studio
 
-A premium, enterprise-grade marketing site for an AI consulting and implementation firm.
+A premium, enterprise-grade marketing site for a team of AI experts who implement and build AI systems.
 Built with **React + Vite + TypeScript + TailwindCSS + Framer Motion**.
 
 > Design direction: large editorial typography, generous whitespace, a white / dark-navy /

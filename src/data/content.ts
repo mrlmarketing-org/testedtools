@@ -12,6 +12,8 @@ import {
   ReceiptText,
   Briefcase,
   HardHat,
+  Gavel,
+  Landmark,
   Users,
   Scale,
   Timer,
@@ -108,6 +110,7 @@ export const services: Service[] = [
 
 export interface Industry {
   id: string
+  slug: string
   name: string
   blurb: string
   icon: LucideIcon
@@ -116,39 +119,59 @@ export interface Industry {
 export const industries: Industry[] = [
   {
     id: 'property',
+    slug: 'property-management',
     name: 'Property Management',
     blurb: 'Automated maintenance triage, lease handling, and resident communication.',
     icon: Building2,
   },
   {
     id: 'hospitality',
+    slug: 'hospitality',
     name: 'Hospitality',
     blurb: 'Unified guest profiles and staff copilots that lift service and retention.',
     icon: Hotel,
   },
   {
     id: 'healthcare',
+    slug: 'healthcare',
     name: 'Healthcare',
     blurb: 'Documentation, intake, and scheduling support that gives clinicians time back.',
     icon: Stethoscope,
   },
   {
     id: 'rcm',
+    slug: 'revenue-cycle-management',
     name: 'Revenue Cycle Management',
     blurb: 'Denial prediction, coding assistance, and faster, cleaner claim submission.',
     icon: ReceiptText,
   },
   {
     id: 'professional',
+    slug: 'professional-services',
     name: 'Professional Services',
     blurb: 'Research, drafting, and knowledge retrieval built on your own files.',
     icon: Briefcase,
   },
   {
+    id: 'legal',
+    slug: 'legal',
+    name: 'Legal',
+    blurb: 'Contract review, discovery, and matter research grounded in your own documents.',
+    icon: Gavel,
+  },
+  {
     id: 'construction',
+    slug: 'construction',
     name: 'Construction',
     blurb: 'Bid analysis, submittal review, and document workflows that keep projects moving.',
     icon: HardHat,
+  },
+  {
+    id: 'financial',
+    slug: 'financial-services',
+    name: 'Financial Services',
+    blurb: 'Document processing, KYC/AML checks, and analyst copilots with a full audit trail.',
+    icon: Landmark,
   },
 ]
 
@@ -170,20 +193,23 @@ export const processSteps: ProcessStep[] = [
   },
   {
     index: '02',
-    title: 'Evaluate',
-    description: 'Every opportunity is scored on business impact, feasibility, and cost to build.',
-    detail: 'Impact / effort scoring · ROI model · Prioritized backlog',
+    title: 'Recommend',
+    description:
+      'We score each opportunity and make the honest call: adopt the right off-the-shelf tool, or build custom only where it genuinely wins.',
+    detail: 'Impact / effort scoring · Build-vs-buy call · Tool shortlist',
   },
   {
     index: '03',
-    title: 'Prototype',
-    description: 'We build a working proof against your real data in weeks — not quarters.',
-    detail: 'Working prototype · Live data test · Go / no-go decision',
+    title: 'Build or configure',
+    description:
+      'We stand up and configure the chosen tools against your real data — or build a custom prototype when nothing off-the-shelf fits.',
+    detail: 'Tool setup or prototype · Live data test · Go / no-go',
   },
   {
     index: '04',
-    title: 'Deploy',
-    description: 'Prototypes become production systems integrated into your stack with guardrails.',
+    title: 'Integrate & deploy',
+    description:
+      'Bought or built, we wire it into the systems you already run — CRMs, ERPs, billing — with guardrails and clear ownership.',
     detail: 'Integration · Guardrails & monitoring · Team enablement',
   },
   {
@@ -273,7 +299,7 @@ export const faqs: FAQItem[] = [
 
 export const trustStats = [
   { value: '40+', label: 'Systems deployed' },
-  { value: '6', label: 'Industries served' },
+  { value: '8', label: 'Industries served' },
   { value: '3–6 wks', label: 'To first prototype' },
   { value: '100%', label: 'Vendor agnostic' },
 ]

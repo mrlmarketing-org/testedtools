@@ -138,7 +138,7 @@ export default function PhoneFeed({ reduce }: { reduce: boolean }) {
       {/* Lock-screen header */}
       <div className="mt-4 mb-3 text-center">
         <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">
-          testedtools.ai
+          operatorstudio.ai
         </p>
         <p className="mt-1 font-display text-[2.4rem] font-semibold leading-none text-white/90">
           9:41
