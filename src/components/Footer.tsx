@@ -1,4 +1,5 @@
 import { BOOKING_URL } from '../lib/config'
+import NewsletterForm from './NewsletterForm'
 
 const columns = [
   {
@@ -60,6 +61,10 @@ export default function Footer() {
               AI experts who help companies choose, deploy, and build AI systems that create
               measurable business value.
             </p>
+
+            <div className="mt-8">
+              <NewsletterForm />
+            </div>
           </div>
 
           {/* Link columns */}

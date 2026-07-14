@@ -1,12 +1,11 @@
 // Central destination for every "Book a call" CTA.
 //
-// TODO: replace with the Calendly scheduling link once it exists, e.g.
-//   export const BOOKING_URL = 'https://calendly.com/operatorstudio/intro'
-// (When it becomes an external URL, the CTAs will open it in a new tab.)
-//
-// Until then this is an inert placeholder — it deliberately does NOT point at
-// the page's #contact / footer section.
-export const BOOKING_URL = '#book'
+// ⚠️ REPLACE the path below with your real Calendly event link:
+//   1. Calendly → create an event type (e.g. "Intro call, 30 min")
+//   2. Copy its share link and paste it here.
+// Because this is now an https:// URL, `isExternalBooking` is true, so every
+// CTA opens it in a new tab automatically.
+export const BOOKING_URL = 'https://calendly.com/operatorstudio-sales/30min'
 
 // True once BOOKING_URL is a real external link (used to open in a new tab).
 export const isExternalBooking = /^https?:\/\//.test(BOOKING_URL)

@@ -66,8 +66,37 @@ components. Brand colors, fonts, shadows, and the fluid display type scale live 
   `aria-expanded`.
 - Fully responsive across desktop, tablet, and mobile.
 
+## Integrations (Calendly + Resend)
+
+### Calendly — booking
+Every "Book a call" CTA reads a single constant, `BOOKING_URL` in
+[`src/lib/config.ts`](src/lib/config.ts). Create an event type in Calendly, copy its
+share link, and paste it there. Because it's an `https://` URL, CTAs open it in a new tab.
+
+### Resend — intake form + newsletter (needs Vercel)
+Resend requires a **server-side** API key, so these run as Vercel serverless functions
+in [`api/`](api/) (no backend of your own to manage). Vite + `/api` is zero-config on
+Vercel — no `vercel.json` needed.
+
+- `api/contact.ts` — the **Work with us** dialog POSTs here; emails the lead to `CONTACT_TO`.
+- `api/subscribe.ts` — the footer **newsletter** form POSTs here; adds the email to a Resend Audience.
+- `api/_email.ts` — shared Resend client (underscore-prefixed → not a public route).
+
+**Setup:**
+1. Create a [Resend](https://resend.com) account and an **API key**.
+2. (Recommended) Verify the `operatorstudio.ai` **domain** in Resend and add its DNS
+   records. Until then, keep `CONTACT_FROM` as `onboarding@resend.dev`.
+3. Create an **Audience** (Resend → Audiences) and copy its id for the newsletter.
+4. In Vercel → Project → Settings → **Environment Variables**, set everything from
+   [`.env.example`](.env.example): `RESEND_API_KEY`, `CONTACT_FROM`, `CONTACT_TO`,
+   `RESEND_AUDIENCE_ID`.
+5. Deploy. To test the functions locally, run `vercel dev` (the plain `vite` dev server
+   does **not** serve `/api`).
+
+Send newsletter issues from Resend → **Broadcasts** (built-in editor, handles
+unsubscribe links automatically — no code).
+
 ## Notes
 
 The case-study figures and all copy are illustrative placeholders — swap them for real
-results before shipping. The **Book a call** CTAs point at `BOOKING_URL` in
-`src/lib/config.ts`; set it to your Calendly link when scheduling is ready.
+results before shipping.

@@ -14,11 +14,15 @@ const fieldClass =
 
 export default function WorkWithUsDialog({ open, onClose }: Props) {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   // Reset to the form each time the dialog opens; lock scroll + wire Escape.
   useEffect(() => {
     if (!open) return
     setSubmitted(false)
+    setError(null)
+    setSubmitting(false)
     document.body.style.overflow = 'hidden'
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
     window.addEventListener('keydown', onKey)
@@ -28,10 +32,29 @@ export default function WorkWithUsDialog({ open, onClose }: Props) {
     }
   }, [open, onClose])
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    // TODO: wire to a form endpoint / email service (e.g. Resend) — nothing is sent yet.
-    setSubmitted(true)
+    setError(null)
+    setSubmitting(true)
+
+    const data = Object.fromEntries(new FormData(e.currentTarget).entries())
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) {
+        const body = (await res.json().catch(() => null)) as { error?: string } | null
+        throw new Error(body?.error || 'Could not send your request. Please try again.')
+      }
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -165,11 +188,17 @@ export default function WorkWithUsDialog({ open, onClose }: Props) {
                     />
                   </div>
 
+                  {error && (
+                    <p role="alert" className="text-center text-sm text-red-600">
+                      {error}
+                    </p>
+                  )}
                   <button
                     type="submit"
-                    className="w-full rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(46,92,255,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-600"
+                    disabled={submitting}
+                    className="w-full rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(46,92,255,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
                   >
-                    Send request
+                    {submitting ? 'Sending…' : 'Send request'}
                   </button>
                   <p className="text-center text-xs text-ink-900/45">
                     We&rsquo;ll only use this to scope the right approach and follow up — no spam.
