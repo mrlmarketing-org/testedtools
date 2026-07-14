@@ -1,32 +1,14 @@
-import { useState, type FormEvent } from 'react'
+import { type FormEvent } from 'react'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { useSubscribe } from '../lib/newsletter'
 
 // Compact newsletter signup — posts to /api/subscribe (Resend Audience).
 export default function NewsletterForm() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'done'>('idle')
-  const [error, setError] = useState<string | null>(null)
+  const { status, error, subscribe } = useSubscribe()
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setError(null)
-    setStatus('loading')
-    const email = new FormData(e.currentTarget).get('email')
-
-    try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-      if (!res.ok) {
-        const body = (await res.json().catch(() => null)) as { error?: string } | null
-        throw new Error(body?.error || 'Could not subscribe. Please try again.')
-      }
-      setStatus('done')
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
-      setStatus('idle')
-    }
+    subscribe(new FormData(e.currentTarget).get('email'))
   }
 
   return (

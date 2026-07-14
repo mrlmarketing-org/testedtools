@@ -9,6 +9,7 @@ import Outcomes from './components/Outcomes'
 import FAQ from './components/FAQ'
 import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
+import NewsletterPopup from './components/NewsletterPopup'
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <FinalCTA />
       </main>
       <Footer />
+      <NewsletterPopup />
     </div>
   )
 }
