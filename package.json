@@ -9,7 +9,7 @@
     "prebuild": "node scripts/gen-industry-pages.mjs",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "tsc -b --noEmit",
+    "lint": "tsc --noEmit -p tsconfig.json",
     "gen:industries": "node scripts/gen-industry-pages.mjs"
   },
   "dependencies": {
