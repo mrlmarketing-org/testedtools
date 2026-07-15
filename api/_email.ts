@@ -2,7 +2,15 @@
 // The API key lives ONLY on the server (Vercel env var) — never shipped to the browser.
 import { Resend } from 'resend'
 
-export const resend = new Resend(process.env.RESEND_API_KEY)
+// Construct lazily. A missing RESEND_API_KEY makes the Resend constructor throw
+// at module load, which hard-crashes the serverless function
+// (FUNCTION_INVOCATION_FAILED) before the handler's "not configured" guard can
+// return a clean error. Deferring construction lets that guard run first.
+let client: Resend | null = null
+export function getResend(): Resend {
+  if (!client) client = new Resend(process.env.RESEND_API_KEY)
+  return client
+}
 
 // From address. Until you verify a domain in Resend, this MUST be
 // `onboarding@resend.dev` (Resend's shared sender). Once operatorstudio.ai is

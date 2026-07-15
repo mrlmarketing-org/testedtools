@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { resend, FROM, LEADS_TO, isEmail, esc } from './_email'
+import { getResend, FROM, LEADS_TO, isEmail, esc } from './_email'
 
 // POST /api/contact — receives the "Work with us" intake form and emails the lead.
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -25,7 +25,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: FROM,
       to: LEADS_TO,
       replyTo: email, // hitting "reply" in your inbox replies to the prospect

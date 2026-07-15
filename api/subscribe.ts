@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { resend, AUDIENCE_ID, isEmail } from './_email'
+import { getResend, AUDIENCE_ID, isEmail } from './_email'
 
 // POST /api/subscribe — adds an email to the Resend newsletter Audience.
 // Create an Audience in the Resend dashboard, then set RESEND_AUDIENCE_ID.
@@ -20,7 +20,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { error } = await resend.contacts.create({
+    const { error } = await getResend().contacts.create({
       email,
       audienceId: AUDIENCE_ID,
       unsubscribed: false,
