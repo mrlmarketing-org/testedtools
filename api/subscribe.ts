@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { getResend, AUDIENCE_ID, isEmail } from './_email'
+import { getResend, AUDIENCE_ID, isEmail } from './_email.js'
 
 // POST /api/subscribe — adds an email to the Resend newsletter Audience.
 // Create an Audience in the Resend dashboard, then set RESEND_AUDIENCE_ID.

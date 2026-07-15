@@ -21,10 +21,10 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
   }
 
   try {
-    const em: any = await import('./_email')
-    steps.importEmail = 'ok: exports=' + Object.keys(em).join(',')
+    const em: any = await import('./_email.js')
+    steps.importEmailJs = 'ok: exports=' + Object.keys(em).join(',')
   } catch (e: any) {
-    steps.importEmail = 'ERR: ' + (e?.message || String(e))
+    steps.importEmailJs = 'ERR: ' + (e?.message || String(e))
   }
 
   res.status(200).json({ marker: 'ping-v2', steps })
