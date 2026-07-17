@@ -1,17 +1,26 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   motion,
+  useAnimationFrame,
+  useInView,
+  useMotionValue,
   useReducedMotion,
-  useScroll,
   useTransform,
   type MotionValue,
 } from 'framer-motion'
 import { stack, type TechItem } from '../data/content'
 import { Eyebrow } from './ui/SectionHeader'
-import { stagger, item as itemVariant, viewportOnce } from '../lib/motion'
+import { fadeUp, stagger, item as itemVariant, viewportOnce } from '../lib/motion'
 
 const GOLDEN_ANGLE = 2.399963 // ~137.5° — evenly spirals chips around the tube
 const BASE_RADIUS = 210 // px from the tunnel axis, at full (desktop) size
+
+// The tunnel plays on a timer instead of being scroll-linked. Start before the
+// first chip's fade-in (depth 0.06 - 0.62) and end after the last one's fade-out
+// (depth 0.92 + 0.05), so the tube is empty at both ends and the loop is seamless.
+const TUNNEL_START = -0.6
+const TUNNEL_END = 1
+const TUNNEL_DURATION = 16 // seconds for one full pass of the stack
 
 // Fixed angular slot + parametric depth along the path, per chip.
 function layout(i: number, total: number) {
@@ -114,15 +123,17 @@ export default function TechStack() {
     return () => window.removeEventListener('resize', update)
   }, [])
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end end'],
-  })
+  // Drives the tunnel off a clock instead of the scrollbar. Frame-driven with a
+  // modulo wrap so it loops forever, and skipped while the section is off-screen
+  // so we're not repainting chips nobody can see.
+  const progress = useMotionValue(TUNNEL_START)
+  const inView = useInView(sectionRef, { amount: 0.2 })
 
-  // Intro heading recedes as you dive into the tunnel; hint tracks the journey.
-  const headingOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0])
-  const headingY = useTransform(scrollYProgress, [0, 0.12], [0, -30])
-  const hintOpacity = useTransform(scrollYProgress, [0, 0.06, 0.9, 1], [0, 0.9, 0.9, 0])
+  useAnimationFrame((t) => {
+    if (!inView) return
+    const phase = ((t / 1000) % TUNNEL_DURATION) / TUNNEL_DURATION
+    progress.set(TUNNEL_START + phase * (TUNNEL_END - TUNNEL_START))
+  })
 
   if (reduce) return <StaticStack />
 
@@ -130,10 +141,9 @@ export default function TechStack() {
     <section
       id="stack"
       ref={sectionRef}
-      className="relative bg-ink-950 text-white"
-      style={{ height: '300vh' }}
+      className="relative h-screen overflow-hidden bg-ink-950 text-white"
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="absolute inset-0">
         {/* Atmosphere */}
         <div className="pointer-events-none absolute inset-0 grid-lines-dark opacity-40" aria-hidden />
         <div
@@ -164,7 +174,7 @@ export default function TechStack() {
                 i={i}
                 total={stack.length}
                 scale={scale}
-                progress={scrollYProgress}
+                progress={progress}
               />
             ))}
           </div>
@@ -180,10 +190,13 @@ export default function TechStack() {
           aria-hidden
         />
 
-        {/* Intro heading */}
+        {/* Intro heading — stays put now that the tunnel runs on its own */}
         <motion.div
           className="pointer-events-none absolute inset-x-0 top-0 pt-24 md:pt-28"
-          style={{ opacity: headingOpacity, y: headingY }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
         >
           <div className="container-x flex flex-col items-center gap-4 text-center">
             <Eyebrow tone="light">Capabilities</Eyebrow>
@@ -194,16 +207,6 @@ export default function TechStack() {
               The models, data, and infrastructure we assemble into systems that ship.
             </p>
           </div>
-        </motion.div>
-
-        {/* Scroll hint */}
-        <motion.div
-          className="pointer-events-none absolute inset-x-0 bottom-8 flex justify-center"
-          style={{ opacity: hintOpacity }}
-        >
-          <span className="eyebrow flex items-center gap-2 text-white/40">
-            <span className="h-1 w-1 rounded-full bg-teal-400" aria-hidden /> Scroll to travel the stack
-          </span>
         </motion.div>
       </div>
     </section>
